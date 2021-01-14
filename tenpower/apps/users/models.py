@@ -6,6 +6,7 @@ from django.db import models
 # Create your models here.
 class User(AbstractUser):
     """用户模型类"""
+    USERNAME_FIELD = 'mobile'
     SEX_CHOICES = (
     (1, "男"),
     (2, "女"),
@@ -23,12 +24,13 @@ class User(AbstractUser):
     address = models.CharField(max_length=100, null=True, verbose_name='联系住址')
     update_date = models.DateTimeField(auto_now=True, verbose_name="更新时间")
     # 我的粉丝有谁
-    fans = models.ManyToManyField(to='self', symmetrical=False,
-    related_name='idols', null=True) # 我的偶像有谁
+    fans = models.ManyToManyField(to='self', symmetrical=False, related_name='idols', null=True) # 我的偶像有谁
     class Meta:
         db_table = 'tb_user'
         verbose_name = '用户'
         verbose_name_plural = verbose_name
+
+
 class OAuthWeixinUser(models.Model):
     """
     QQ登录用户数据

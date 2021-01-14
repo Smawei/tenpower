@@ -120,6 +120,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# 用户模型
+AUTH_USER_MODEL = 'users.User'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -138,6 +141,13 @@ CACHES = {
     "session": {  # session
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379/2",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    },
+    "sms": {  # sms
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/3",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
@@ -190,8 +200,22 @@ LOGGING = {
 
 # CORS
 CORS_ALLOWED_ORIGINS = [
-    "https://www.tenpower.site:8080",
-    "https://127.0.0.1:8080",
-    "https://www.tenpower.site:8000",
-    "https://127.0.0.1:8080",
+    "http://www.tenpower.site:8080",
+    "http://127.0.0.1:8080",
+    "http://www.tenpower.site:8000",
+    "http://127.0.0.1:8080",
 ]
+
+# JWT
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+import datetime
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.jwt.jwt_response_payload_handler',
+}

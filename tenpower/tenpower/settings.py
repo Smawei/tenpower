@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'apps.users',  # 用户
+    'apps.spit',  # 吐槽
+    'apps.recruitment',  # 招聘
+    'apps.article',  # 文章
+    'apps.event',  # 活动
+    'apps.label',  # 问答
 ]
 
 MIDDLEWARE = [

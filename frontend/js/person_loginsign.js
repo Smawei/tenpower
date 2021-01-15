@@ -144,7 +144,7 @@ var vm = new Vue({
             var url = host + 'authorizations/';
             axios.post(url,
                 {
-                    username: this.log_username,
+                    mobile: this.log_username,
                     password: this.log_password,
 
                 }
